@@ -5,5 +5,8 @@
 	}, {
 		"html": "<div><span>Hello</span><div><span class='inner-span'>World</span></div></div>",
 		"js": "Div([Span('', 'Hello'), Div([Span('.inner-span', 'World')])])"
+	}, {
+		"html": "<div><span data-label='hello' class='inner-span'>Hello</span><span data-label='world' class='inner-span'>World</span></div>",
+		"js": "Div([Span('.inner-span', 'Hello', {\n    \"attributes\": {\n        \"data-label\": \"hello\"\n    }\n}), Span('.inner-span', 'World', {\n    \"attributes\": {\n        \"data-label\": \"world\"\n    }\n})])"
 	}]
 }

@@ -22,11 +22,14 @@
 			Paste some HTML bellow, or check the examples bellow:
 		</p>
 		<p>
-			<button type="button" class="demo" value="<div id='wrapper' class='full red'><div id='inner' onclick='foo(1, this);'></div></div>">
+			<button type="button" class="demo" value="<div id='wrapper' class='full red'><div id='inner' onclick='foo(1, this.id);'>Click me</div></div>">
 				example A
 			</button>
 			<button type="button" class="demo" value="<div><span>Hello</span><div><span class='inner-span'>World</span></div></div>">
 				example B
+			</button>
+			<button type="button" class="demo" value="<div><span data-label='hello' class='inner-span'>Hello</span><span data-label='world' class='inner-span'>World</span></div>">
+				example C
 			</button>
 		</p>
 		<textarea class="code"></textarea>
