@@ -1,12 +1,12 @@
 {
   "name": "html-to-alkali",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "webpack && jest"
   },
-  "author": "",
+  "author": "https://github.com/SergioCrisostomo",
   "license": "ISC",
   "dependencies": {
     "alkali": "^0.10.2",
