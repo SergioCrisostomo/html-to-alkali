@@ -1,7 +1,7 @@
 
 ## HTML to Alkali API converter
 
-This code converts HTML into JavaScript with Alkali sintax.
+This code converts HTML into JavaScript with [Alkali sintax](https://github.com/kriszyp/alkali).
 
 For example:
 
