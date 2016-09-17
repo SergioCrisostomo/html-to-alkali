@@ -1,5 +1,5 @@
 
-## Alkali HTML to Alkali API converter
+## HTML to Alkali API converter
 
 This code converts HTML into JavaScript with Alkali sintax.
 
