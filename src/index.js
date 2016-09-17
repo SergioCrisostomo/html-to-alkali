@@ -2,16 +2,11 @@
 const beautify = require('js-beautify').js_beautify;
 const tags = require('./tags');
 
-const textarea = document.querySelector('textarea.code');
-const target = document.querySelector('pre.code');
-const demos = [...document.querySelectorAll('button')];
-
-function convert(){
-	if (this.tagName == 'BUTTON') textarea.value = this.value;
+function convert(str){
 	const proxy = document.createElement('div');
-	proxy.innerHTML = this.value;
+	proxy.innerHTML = str;
 	const alkaliDOM = toAlkali(proxy.children[0]);
-	target.innerHTML = beautify(alkaliDOM);
+	return beautify(alkaliDOM);
 }
 
 function bindArguments(js){ // TODO: use jscodeshift for this
@@ -20,6 +15,16 @@ function bindArguments(js){ // TODO: use jscodeshift for this
 	const args =  js.match(/\((.*)\)/)[1].split(',').map(s => s.trim());
 	const bindArgs = ['window'].concat(args).filter(Boolean).join(', ');
 	return `${name}.bind(${bindArgs})`;
+}
+
+function mountJSON(obj){
+	const body = Object.keys(obj).reduce((arr, key) => {
+		let val = `"${obj[key]}"`; // quoted string, default
+		if (key == 'attributes') val = `${mountJSON(obj[key])}`; // nested object
+		else if (key.indexOf('on') == 0) val = val.slice(1, -1); // unquoted strin
+		return arr.concat(`"${key}": ${val}`);
+	}, []);
+	return `{${body.join(', ')}}`;
 }
 
 function toAlkali(el) {
@@ -44,14 +49,9 @@ function toAlkali(el) {
 	const args = textContent ? [`'${selector}'`, `'${textContent}'`] :
 		selector ? [`'${selector}'`] : [];
 
-	if (Object.keys(attributes).length > 0) args.push(JSON.stringify(attributes));
+	if (Object.keys(attributes).length > 0) args.push(mountJSON(attributes));
 	if (children.length > 0) args.push('[' + children + ']');
-
     return `${tag}(${args.join(', ')})`;
 }
 
-
-textarea.addEventListener('input', convert);
-demos.forEach(
-	el => el.addEventListener('click', convert)
-);
+module.exports = convert;
