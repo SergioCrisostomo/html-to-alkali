@@ -35,11 +35,15 @@ function toAlkali(el) {
     }, {});
 
     const children = [...el.children].map(toAlkali);
-    const args = [id || classes ? `'${id + classes}'` : null];
+    const selector = id + classes;
+	const textContent = el.children.length == 0 && el.textContent;
+	const args = textContent ? [`'${selector}'`, `'${textContent}'`] :
+		selector ? [`'${selector}'`] : [];
+
 	if (Object.keys(attributes).length > 0) args.push(JSON.stringify(attributes));
 	if (children.length > 0) args.push('[' + children + ']');
 
-    return `${tag}(${args.filter(Boolean).join(', ')})`;
+    return `${tag}(${args.join(', ')})`;
 }
 
 
