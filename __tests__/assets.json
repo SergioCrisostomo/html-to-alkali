@@ -1,0 +1,9 @@
+{
+	"parse": [{
+		"html": "<div id='wrapper' class='full red'><div id='inner' onclick='foo(1, this.id);'>Click me</div></div>",
+		"js": "Div('#wrapper.full.red', [Div('#inner', 'Click me', {\n    \"onclick\": foo.bind(window, 1, this.id)\n})])"
+	}, {
+		"html": "<div><span>Hello</span><div><span class='inner-span'>World</span></div></div>",
+		"js": "Div([Span('', 'Hello'), Div([Span('.inner-span', 'World')])])"
+	}]
+}

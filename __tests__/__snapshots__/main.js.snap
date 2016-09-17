@@ -1,0 +1,41 @@
+exports[`HTML to Alkali tests should produce valid Alkali API code 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "className": "",
+      "id": "inner",
+      "textContent": "Click me"
+    }
+  ],
+  "className": "full red",
+  "id": "wrapper"
+}
+`;
+
+exports[`HTML to Alkali tests should produce valid Alkali API code 2`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "className": "",
+      "id": "",
+      "textContent": "Hello"
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [],
+          "className": "inner-span",
+          "id": "",
+          "textContent": "World"
+        }
+      ],
+      "className": "",
+      "id": ""
+    }
+  ],
+  "className": "",
+  "id": ""
+}
+`;
