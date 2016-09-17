@@ -17,7 +17,7 @@ is converted to:
 
 ### How to use:
 
-You can use it online [here](https://rawgit.com/SergioCrisostomo/html-to-alkali/master/index.html).
+You can use it online [here](https://sergiocrisostomo.github.io/html-to-alkali/).
 
 ### Testing:
 
