@@ -76,6 +76,10 @@
 	    const attributes = [...el.attributes].reduce((obj, attr) => {
 	        if (['id', 'class', 'children'].indexOf(attr.name) != -1) return obj;
 			if (attr.name.indexOf('on') == 0) obj[attr.name] = bindArguments(attr.value);
+			else if (typeof el[attr.name] == 'undefined'){
+				if (!obj.attributes) obj.attributes = {};
+				obj.attributes[attr.name] = attr.value;
+			}
 	        else obj[attr.name] = attr.value;
 	        return obj;
 	    }, {});
