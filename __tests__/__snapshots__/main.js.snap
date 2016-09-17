@@ -39,3 +39,24 @@ Object {
   "id": ""
 }
 `;
+
+exports[`HTML to Alkali tests should produce valid Alkali API code 3`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
+      "className": "inner-span",
+      "id": "",
+      "textContent": "Hello"
+    },
+    Object {
+      "children": Array [],
+      "className": "inner-span",
+      "id": "",
+      "textContent": "World"
+    }
+  ],
+  "className": "",
+  "id": ""
+}
+`;
