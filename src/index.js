@@ -4,7 +4,7 @@ const tags = require('./tags');
 
 const textarea = document.querySelector('textarea.code');
 const target = document.querySelector('pre.code');
-const demo = document.querySelector('button');
+const demos = [...document.querySelectorAll('button')];
 
 function convert(){
 	if (this.tagName == 'BUTTON') textarea.value = this.value;
@@ -48,4 +48,6 @@ function toAlkali(el) {
 
 
 textarea.addEventListener('input', convert);
-demo.addEventListener('click', convert);
+demos.forEach(
+	el => el.addEventListener('click', convert)
+);
