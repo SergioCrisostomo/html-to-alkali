@@ -39,10 +39,9 @@ function toAlkali(el) {
 	if (el.nodeType == 3) return handleTextNode(el);
 
 	const tag = tags[el.tagName];
-    const id = el.id ? `#${el.id}` : '';
-    const classes = [...el.classList].map(clss => `.${clss}`).join('');
-
-    const attributes = [...el.attributes].reduce((obj, attr) => {
+	const id = el.id ? `#${el.id}` : '';
+	const classes = [...el.classList].map(clss => `.${clss}`).join('');
+	const attributes = [...el.attributes].reduce((obj, attr) => {
 		if (['id', 'class', 'children'].indexOf(attr.name) != -1) return obj;
 		if (attr.name.indexOf('on') == 0) obj[attr.name] = bindArguments(attr.value);
 		else if (typeof el[attr.name] == 'undefined'){
@@ -51,10 +50,10 @@ function toAlkali(el) {
 		}
 		else obj[attr.name] = attr.value;
 		return obj;
-    }, {});
+	}, {});
 
-    const children = [...el.childNodes].map(toAlkali).filter(Boolean);
-    const selector = id + classes;
+	const children = [...el.childNodes].map(toAlkali).filter(Boolean);
+	const selector = id + classes;
 	const args = [];
 
 	if (selector) args.push(`'${selector}'`);
