@@ -1,23 +1,33 @@
 
-## HTML to Alkali API converter
+## HTML to Alkali API converter tool
 
-This code converts HTML into JavaScript with [Alkali sintax](https://github.com/kriszyp/alkali).
+This tool converts HTML into JavaScript with [Alkali API sintax](https://github.com/kriszyp/alkali).
 
 For example:
 
-	<div id='wrapper' class='full red'>
-	    <div id='inner' onclick='foo(1, this.id);'>Click me</div>
-	</div>
+```html
+<div>
+    <span>Hello</span>
+    <div>
+        <span class='inner-span'>World</span>
+    </div>
+</div>
+```
 
 is converted to:
 
-	Div('#wrapper.full.red', [Div('#inner', 'Click me', {
-	    "onclick": foo.bind(window, 1, this.id)
-	})])
+```javascript
+Div([
+    Span('', 'Hello'),
+    Div([
+        Span('.inner-span', 'World')
+    ])
+])
+```
 
 ### How to use:
 
-You can use it online [here](https://sergiocrisostomo.github.io/html-to-alkali/).
+You can [use it online here](https://sergiocrisostomo.github.io/html-to-alkali/).
 
 ### Testing:
 
