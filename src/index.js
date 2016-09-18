@@ -43,14 +43,14 @@ function toAlkali(el) {
 		return obj;
     }, {});
 
-    const children = [...el.children].map(toAlkali);
+    const children = [...el.children].map(toAlkali).join(',\n');
     const selector = id + classes;
 	const textContent = el.children.length == 0 && el.textContent;
 	const args = textContent ? [`'${selector}'`, `'${textContent}'`] :
 		selector ? [`'${selector}'`] : [];
 
 	if (Object.keys(attributes).length > 0) args.push(mountJSON(attributes));
-	if (children.length > 0) args.push('[' + children + ']');
+	if (children.length > 0) args.push('[\n' + children + '\n]');
     return `${tag}(${args.join(', ')})`;
 }
 
