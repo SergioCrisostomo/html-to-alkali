@@ -62,7 +62,7 @@ this["convert"] =
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2994,7 +2994,7 @@ if (!Object.values) {
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var beautify = __webpack_require__(8).js_beautify;
+var beautify = __webpack_require__(4).js_beautify;
 var tags = __webpack_require__(3);
 
 function convert(str) {
@@ -3025,7 +3025,17 @@ function mountJSON(obj) {
 	return '{' + body.join(', ') + '}';
 }
 
+function handleTextNode(el) {
+	var txt = el.textContent;
+	var isEmpty = txt.split(/[\s\n\t\r]*/).filter(Boolean).length == 0;
+	if (isEmpty) return null;
+	return '\'' + txt + '\'';
+}
+
 function toAlkali(el) {
+
+	if (el.nodeType == 3) return handleTextNode(el);
+
 	var tag = tags[el.tagName];
 	var id = el.id ? '#' + el.id : '';
 	var classes = [].concat(_toConsumableArray(el.classList)).map(function (clss) {
@@ -3041,13 +3051,15 @@ function toAlkali(el) {
 		return obj;
 	}, {});
 
-	var children = [].concat(_toConsumableArray(el.children)).map(toAlkali).join(',\n');
+	var children = [].concat(_toConsumableArray(el.childNodes)).map(toAlkali).filter(Boolean);
 	var selector = id + classes;
-	var textContent = el.children.length == 0 && el.textContent;
-	var args = textContent ? ['\'' + selector + '\'', '\'' + textContent + '\''] : selector ? ['\'' + selector + '\''] : [];
+	var args = [];
 
+	if (selector) args.push('\'' + selector + '\'');
+	if (el.textContent && children.length == 0) children.unshift('\'' + el.textContent + '\'');
+	if (children.length > 0) args.push('[\n' + children.join(',\n') + '\n]');
 	if (Object.keys(attributes).length > 0) args.push(mountJSON(attributes));
-	if (children.length > 0) args.push('[\n' + children + '\n]');
+
 	return tag + '(' + args.join(', ') + ')';
 }
 
@@ -3149,11 +3161,7 @@ module.exports = {
 };
 
 /***/ },
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -3196,7 +3204,7 @@ if (true) {
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
         __webpack_require__(1),
         __webpack_require__(0),
-        __webpack_require__(9)
+        __webpack_require__(5)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = function(js_beautify, css_beautify, html_beautify) {
         return get_beautify(js_beautify, css_beautify, html_beautify);
     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -3212,7 +3220,7 @@ if (true) {
 }
 
 /***/ },
-/* 9 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*jshint curly:true, eqeqeq:true, laxbreak:true, noempty:false */
@@ -4247,7 +4255,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*jshint curly:t
 }());
 
 /***/ },
-/* 10 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";

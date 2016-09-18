@@ -27,8 +27,18 @@ function mountJSON(obj){
 	return `{${body.join(', ')}}`;
 }
 
+function handleTextNode(el){
+	const txt = el.textContent;
+	const isEmpty = txt.split(/[\s\n\t\r]*/).filter(Boolean).length == 0;
+	if (isEmpty) return null;
+	return `'${txt}'`;
+}
+
 function toAlkali(el) {
-    const tag = tags[el.tagName];
+
+	if (el.nodeType == 3) return handleTextNode(el);
+
+	const tag = tags[el.tagName];
     const id = el.id ? `#${el.id}` : '';
     const classes = [...el.classList].map(clss => `.${clss}`).join('');
 
@@ -43,15 +53,16 @@ function toAlkali(el) {
 		return obj;
     }, {});
 
-    const children = [...el.children].map(toAlkali).join(',\n');
+    const children = [...el.childNodes].map(toAlkali).filter(Boolean);
     const selector = id + classes;
-	const textContent = el.children.length == 0 && el.textContent;
-	const args = textContent ? [`'${selector}'`, `'${textContent}'`] :
-		selector ? [`'${selector}'`] : [];
+	const args = [];
 
+	if (selector) args.push(`'${selector}'`);
+	if (el.textContent && children.length == 0) children.unshift(`'${el.textContent}'`);
+	if (children.length > 0) args.push('[\n' + children.join(',\n') + '\n]');
 	if (Object.keys(attributes).length > 0) args.push(mountJSON(attributes));
-	if (children.length > 0) args.push('[\n' + children + '\n]');
-    return `${tag}(${args.join(', ')})`;
+
+	return `${tag}(${args.join(', ')})`;
 }
 
 module.exports = convert;
