@@ -6,6 +6,7 @@ const alkali = require('alkali');
 const convert = require('../builds/bundle.js').convert;
 const Div = alkali.Div;
 const Span = alkali.Span;
+const P = alkali.P;
 
 const toJSON = (function (attrs) { // make a JSON from a Alkali instance
 	return function (obj){

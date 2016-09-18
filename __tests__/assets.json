@@ -1,12 +1,15 @@
 {
 	"parse": [{
 		"html": "<div id='wrapper' class='full red'><div id='inner' onclick='foo(1, this.id);'>Click me</div></div>",
-		"js": "Div('#wrapper.full.red', [Div('#inner', 'Click me', {\n    \"onclick\": foo.bind(window, 1, this.id)\n})])"
+		"js": "Div('#wrapper.full.red', [\n    Div('#inner', [\n        'Click me'\n    ], {\n        \"onclick\": foo.bind(window, 1, this.id)\n    })\n])"
 	}, {
 		"html": "<div><span>Hello</span><div><span class='inner-span'>World</span></div></div>",
-		"js": "Div([Span('', 'Hello'), Div([Span('.inner-span', 'World')])])"
+		"js": "Div([\n    Span([\n        'Hello'\n    ]),\n    Div([\n        Span('.inner-span', [\n            'World'\n        ])\n    ])\n])"
+	}, {
+		"html": "<p>Hello <span>World!</span></p>",
+		"js": "P([\n    'Hello ',\n    Span([\n        'World!'\n    ])\n])"
 	}, {
 		"html": "<div><span data-label='hello' class='inner-span'>Hello</span><span data-label='world' class='inner-span'>World</span></div>",
-		"js": "Div([Span('.inner-span', 'Hello', {\n    \"attributes\": {\n        \"data-label\": \"hello\"\n    }\n}), Span('.inner-span', 'World', {\n    \"attributes\": {\n        \"data-label\": \"world\"\n    }\n})])"
+		"js": "Div([\n    Span('.inner-span', [\n        'Hello'\n    ], {\n        \"attributes\": {\n            \"data-label\": \"hello\"\n        }\n    }),\n    Span('.inner-span', [\n        'World'\n    ], {\n        \"attributes\": {\n            \"data-label\": \"world\"\n        }\n    })\n])"
 	}]
 }

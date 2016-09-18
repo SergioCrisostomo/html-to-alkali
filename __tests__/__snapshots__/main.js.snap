@@ -45,6 +45,21 @@ Object {
   "children": Array [
     Object {
       "children": Array [],
+      "className": "",
+      "id": "",
+      "textContent": "World!"
+    }
+  ],
+  "className": "",
+  "id": ""
+}
+`;
+
+exports[`HTML to Alkali tests should produce valid Alkali API code 4`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [],
       "className": "inner-span",
       "id": "",
       "textContent": "Hello"
