@@ -34,6 +34,14 @@ function handleTextNode(el){
 	return `'${txt}'`;
 }
 
+function jsonifyArray(arr){
+	console.log(arr.length, arr)
+	const lineBreak = arr.length > 1 ? '\n' : '';
+	const str = ['[', lineBreak, arr.join(`,${lineBreak}`), lineBreak, ']'].join('');
+	console.log(str)
+	return str
+}
+
 function toAlkali(el) {
 
 	if (el.nodeType == 3) return handleTextNode(el);
@@ -58,7 +66,7 @@ function toAlkali(el) {
 
 	if (selector) args.push(`'${selector}'`);
 	if (el.textContent && children.length == 0) children.unshift(`'${el.textContent}'`);
-	if (children.length > 0) args.push('[\n' + children.join(',\n') + '\n]');
+	if (children.length > 0) args.push(jsonifyArray(children));
 	if (Object.keys(attributes).length > 0) args.push(mountJSON(attributes));
 
 	return `${tag}(${args.join(', ')})`;

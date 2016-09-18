@@ -3032,6 +3032,14 @@ function handleTextNode(el) {
 	return '\'' + txt + '\'';
 }
 
+function jsonifyArray(arr) {
+	console.log(arr.length, arr);
+	var lineBreak = arr.length > 1 ? '\n' : '';
+	var str = ['[', lineBreak, arr.join(',' + lineBreak), lineBreak, ']'].join('');
+	console.log(str);
+	return str;
+}
+
 function toAlkali(el) {
 
 	if (el.nodeType == 3) return handleTextNode(el);
@@ -3041,7 +3049,6 @@ function toAlkali(el) {
 	var classes = [].concat(_toConsumableArray(el.classList)).map(function (clss) {
 		return '.' + clss;
 	}).join('');
-
 	var attributes = [].concat(_toConsumableArray(el.attributes)).reduce(function (obj, attr) {
 		if (['id', 'class', 'children'].indexOf(attr.name) != -1) return obj;
 		if (attr.name.indexOf('on') == 0) obj[attr.name] = bindArguments(attr.value);else if (typeof el[attr.name] == 'undefined') {
@@ -3057,7 +3064,7 @@ function toAlkali(el) {
 
 	if (selector) args.push('\'' + selector + '\'');
 	if (el.textContent && children.length == 0) children.unshift('\'' + el.textContent + '\'');
-	if (children.length > 0) args.push('[\n' + children.join(',\n') + '\n]');
+	if (children.length > 0) args.push(jsonifyArray(children));
 	if (Object.keys(attributes).length > 0) args.push(mountJSON(attributes));
 
 	return tag + '(' + args.join(', ') + ')';
